@@ -18,7 +18,23 @@ class NationalPark:
     
     def best_visitor(self):
 
-        pass
+        # GITHUB ATTEMPTS      
+        visitors = [trip.visitor for trip in self.trips()]
+
+        # VERSION 1
+        # counts = {visitor: visitors.count(visitor) for visitor in visitors}
+        # sorted_list = sorted(counts.items(), key=lambda pair: pair[1], reverse=True)
+        # return sorted_list[0][0]
+
+        # VERSION 2
+        # return Counter(visitors).most_common(1)[0][0]
+
+        # VERSION 3
+        return max(set(visitors), key=visitors.count)
+    
+
+        # NICK ATTEMPTS
+    
         # # FUNCTIONALITY WORKS BUT DOESN'T PASS TEST
         # visits = [trip.visitor for trip in self.trips() if trip.national_park == self]
         # # print(visits)
@@ -35,6 +51,7 @@ class NationalPark:
         # print(sorted_visits)
         # return sorted_visits[1]
 
+
     @property
     def name(self):
         return self._name
@@ -43,6 +60,9 @@ class NationalPark:
         if isinstance(value, str) and not hasattr(self, "name") and 3 <= len(value):
             self._name = value
 
+    @classmethod
+    def most_visited(cls):
+        return max(cls.all, key=lambda park: park.total_visits())
 
 class Trip:
 
